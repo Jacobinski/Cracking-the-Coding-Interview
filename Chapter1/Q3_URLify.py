@@ -2,22 +2,32 @@ test_str = ["Hello World!", "My name is Jacob", "Test"]
 test_len = [14, 22, 4]
 
 def URLify(string, length):
-    new_string = [None] * length
-    string = [s for s in string]
-    i = length - 1
-    j = len(string) - 1
-    while i >= 0:
-        char = string[j]
-        if char == ' ':
-            new_string[i] = '0'
-            new_string[i-1] = '2'
-            new_string[i-2] = '%'
-            i = i - 3
-            j = j - 1
+    # Create the static array string
+    new_string = [' '] * length
+    for k, s in enumerate(string):
+        new_string[k] = s
+
+    found_first_char = False
+
+    writer = length - 1
+    reader = length - 1
+
+    while not found_first_char:
+        if new_string[reader] == ' ':
+            reader -= 1
         else:
-            new_string[i] = string[j]
-            i = i - 1
-            j = j - 1
+            found_first_char = 'True'
+
+    while reader >= 0:
+        char = new_string[reader]
+        if char == ' ':
+            new_string[writer-2:writer+1] = '%20'
+            writer -= 3
+            reader -= 1
+        else:
+            new_string[writer] = new_string[reader]
+            writer -= 1
+            reader -= 1
 
     print(''.join(new_string))
 

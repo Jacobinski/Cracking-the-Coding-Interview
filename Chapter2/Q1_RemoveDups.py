@@ -3,6 +3,9 @@ class Node:
         self.value = value
         self.next = next
 
+    def __str__(self):
+        return str(self.value)
+
 class Linked_List:
     def __init__(self):
         self.cur_node = None
@@ -16,7 +19,7 @@ class Linked_List:
     def lprint(self):
         node = self.cur_node
         while node != None:
-            print(str(node.value)), # This comma is weird. It lets you print on the same line
+            print(node), # This comma is weird. It lets you print on the same line
             node = node.next
         print("")
 
@@ -29,15 +32,18 @@ class Linked_List:
         while reader != None:
             value = reader.value
             runner = reader
+            query = runner.next
 
             # Runner is none at the end of the list
-            while runner.next != None:
+            while query != None:
                 # Check to see if next item is duplicate
-                if runner.next.value == value:
-                    # Remove the item & get new next
-                    runner.next = runner.next.next
+                if query.value == value:
+                    runner.next = runner.next.next # Point the list to skip query
+                    query.next = None # Remove to query's assocation
+                    query = runner.next # Get a new query
                 else:
                     runner = runner.next
+                    query = runner.next
 
             reader = reader.next
 

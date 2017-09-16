@@ -28,17 +28,15 @@ class Linked_List:
         # Reader is none at the end of the list
         while reader != None:
             value = reader.value
+            runner = reader
 
             # Runner is none at the end of the list
             while runner.next != None:
                 # Check to see if next item is duplicate
-                print("hello" + str(runner.next.value) + " " + str(value))
                 if runner.next.value == value:
-                    print("hi")
                     # Remove the item & get new next
                     runner.next = runner.next.next
                 else:
-                    print("sad"),
                     runner = runner.next
 
             reader = reader.next
